@@ -1,0 +1,31 @@
+doctype
+html
+  head
+    title player
+  body(style='text-align: center')
+  block content
+    header
+      h1= name
+    ul(style='color: blue;list-style-position: inside')
+      b Info
+      li=age
+      li=team
+      li=height
+      li=rookie
+    br
+    br
+    br
+    ul(style='color: green;list-style-position: inside')
+      b Stats
+      li=totalGames
+      li=averagePoints
+      li=averageRebounds
+      li=averageAssists
+      li=averageSteals
+      li=averageBlocks
+    br
+    br
+    br
+    a(href='/home') Search for Player
+    footer
+      h6 @MaxJacobsen

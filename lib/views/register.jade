@@ -1,0 +1,28 @@
+doctype
+html
+  head
+    title Registration
+  body(style='text-align: center')
+  block content
+    header
+      h1 Create User:
+    br
+    br
+    form(method='POST')
+      div New Username:
+        input(name='username')
+      br
+      div New Password:
+        input(name='newpassword' type='password')
+      br
+      div Confirm Password:
+        input(name='password' type='password')
+      br
+      br
+      input(type='submit' value='Create User')
+      br
+      br
+      h4= info
+      br
+    footer
+      h6 @MaxJacobsen

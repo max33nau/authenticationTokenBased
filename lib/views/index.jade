@@ -1,0 +1,26 @@
+doctype
+html
+  head
+    title home
+  body(style='text-align: center')
+    block content
+    header
+      h1 Welcome to this awesome home page glad you registered
+    p(style='color: blue').
+      This html content is brought to you by jade
+    div Enter a NBA players name to search for  : 
+    form(method='GET' action='player/find' )
+      input(type='text' name='name')
+      br
+      br
+      input(type='submit'  value='Search')
+      br
+      br
+      h4= error
+      p You are currently signed in as :  
+        span(style='color:red; font-weight: bolder')= username
+      a(href='/home')= home
+    br
+    a(href='/logout') Log Out
+    footer
+      h6 @MaxJacobsen
