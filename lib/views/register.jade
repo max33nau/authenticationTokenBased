@@ -2,27 +2,42 @@ doctype
 html
   head
     title Registration
+    script(src='https://cdn.jsdelivr.net/superagent/0.18.0/superagent.min.js')
   body(style='text-align: center')
   block content
     header
       h1 Create User:
     br
     br
-    form(method='POST')
+    form(onsubmit='signup(event.target); return false;')
       div New Username:
         input(name='username')
       br
-      div New Password:
-        input(name='newpassword' type='password')
-      br
-      div Confirm Password:
+      div Password:
         input(name='password' type='password')
       br
       br
       input(type='submit' value='Create User')
       br
       br
-      h4= info
+      h4(id='error') Please Register
       br
     footer
       h6 @MaxJacobsen
+    script.
+      function signup(form){
+        var error = document.getElementById('error');
+        if(error.innerHTML){
+          error.innerHTML = 'Please Register';
+        }
+        superagent.post('/user/signup')
+          .send({"username":form.username.value, "password":form.password.value})
+          .end(function(error,response){
+            if(response.body.token) {
+              localStorage.setItem('token', response.body.token);
+              window.location.href = '/home/'+form.username.value;
+            } else {
+              document.getElementById('error').innerHTML = 'Sorry that name has already been taken.'
+            }
+          })
+      }

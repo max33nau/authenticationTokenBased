@@ -2,6 +2,7 @@ doctype
 html
   head
     title Login
+    script(src='https://cdn.jsdelivr.net/superagent/0.18.0/superagent.min.js')
   body(style='text-align: center')
     block content
     header
@@ -11,7 +12,7 @@ html
     br
     br
     p Please enter your username and password to log in:
-    form(method='POST')
+    form(onsubmit='signin(event.target); return false;')
       div Username:
         input(name='username')
       br
@@ -20,9 +21,27 @@ html
       br
       input(type='submit' value='Login')
       br
+      h6(id='error') Please sign in
       br
     p If you have not registered for our website please click the button below to sign up.
-    a(href='/register') Click to Register
+    a(href='/user/register') Click to Register
       br
     footer
       h6 @MaxJacobsen
+    script.
+      function signin(form){
+        var error = document.getElementById('error');
+        if(error.innerHTML){
+          error.innerHTML = 'Please Sign In';
+        }
+        superagent.get('/user/signin')
+          .auth(form.username.value, form.password.value)
+          .end(function(error,response){
+            if(response.body.token) {
+              localStorage.setItem('token', response.body.token);
+              window.location.href = '/home/'+form.username.value;
+            } else {
+              document.getElementById('error').innerHTML = 'Sorry, Unknown username/password'
+            }
+          })
+      }
